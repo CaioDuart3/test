@@ -6,7 +6,8 @@ import {
   useTransform,
 } from 'motion/react';
 import { useRef } from 'react';
-import { type SiteContent } from '../../data/siteContent';
+import { type MemojiAccentContent, type SiteContent } from '../../data/siteContent';
+import { MemojiAccent } from '../MemojiAccent/MemojiAccent';
 import { Photo } from '../PhotoPlaceholder/Photo';
 import styles from './Hero.module.css';
 
@@ -14,9 +15,10 @@ type HeroContent = SiteContent['hero'];
 
 interface HeroProps {
   content: HeroContent;
+  memoji: MemojiAccentContent;
 }
 
-export function Hero({ content }: HeroProps) {
+export function Hero({ content, memoji }: HeroProps) {
   const heroRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useMotionReducedMotion();
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
@@ -55,6 +57,7 @@ export function Hero({ content }: HeroProps) {
             01
           </span>
           <span className={styles.orbit} aria-hidden="true" />
+          <MemojiAccent accent={memoji} variant="hero" />
           <Photo
             photo={content.photo}
             className={styles.photo}

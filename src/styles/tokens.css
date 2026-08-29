@@ -1,11 +1,11 @@
 :root {
-  --color-cream: #f7f2ec;
-  --color-paper: #efe4dd;
-  --color-rose: #c98f95;
-  --color-wine: #713b49;
-  --color-ink: #292524;
-  --color-muted: #746b67;
-  --color-rose-deep: #9f6872;
+  --color-cream: #faf5ec;
+  --color-paper: #eadcc7;
+  --color-rose: #c4a15f;
+  --color-wine: #4d3441;
+  --color-ink: #2b2622;
+  --color-muted: #6d625b;
+  --color-rose-deep: #876b3f;
   --color-focus: #1d4ed8;
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -14,6 +14,6 @@
   --container: min(1120px, calc(100vw - 40px));
   --nav-height: 72px;
   --radius: 8px;
-  --shadow-soft: 0 24px 70px rgb(41 37 36 / 0.14);
-  --line: rgb(113 59 73 / 0.22);
+  --shadow-soft: 0 24px 70px rgb(43 38 34 / 0.14);
+  --line: rgb(77 52 65 / 0.22);
 }

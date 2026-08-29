@@ -1,8 +1,17 @@
+import memojiCool from '../assets/primeira.png';
+import memojiPlayful from '../assets/segunda.png';
+import memojiWink from '../assets/terceira.png';
+
 export interface PhotoContent {
   src: string;
   alt: string;
   caption?: string;
   placeholder: string;
+}
+
+export interface MemojiAccentContent {
+  src: string;
+  label: string;
 }
 
 export interface TimelineItem {
@@ -25,6 +34,11 @@ export interface SiteContent {
   meta: {
     title: string;
     description: string;
+  };
+  memojis: {
+    hero: MemojiAccentContent;
+    letter: MemojiAccentContent;
+    gallery: MemojiAccentContent;
   };
   sections: {
     timelineTitle: string;
@@ -56,6 +70,20 @@ export const siteContent: SiteContent = {
   meta: {
     title: '[TITULO EDITAVEL DO SITE]',
     description: '[DESCRICAO EDITAVEL DO SITE]',
+  },
+  memojis: {
+    hero: {
+      src: memojiCool,
+      label: 'Memoji decorativo com oculos coloridos',
+    },
+    letter: {
+      src: memojiWink,
+      label: 'Memoji decorativo piscando',
+    },
+    gallery: {
+      src: memojiPlayful,
+      label: 'Memoji decorativo sorrindo',
+    },
   },
   sections: {
     timelineTitle: '[TITULO DA LINHA DO TEMPO]',
@@ -148,3 +176,4 @@ export const siteContent: SiteContent = {
 // Para fotos, coloque os arquivos em public/photos e use caminhos como "/photos/nome.webp".
 // Deixe src vazio enquanto nao houver foto; o site renderiza placeholders elegantes.
 // Para a playlist, cole apenas URLs de embed publicas do Spotify ou YouTube, sem chaves ou APIs.
+// Os memojis sao decorativos; troque os imports acima se quiser substituir as imagens.

@@ -1,7 +1,8 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
-import { type PhotoContent } from '../../data/siteContent';
+import { type MemojiAccentContent, type PhotoContent } from '../../data/siteContent';
+import { MemojiAccent } from '../MemojiAccent/MemojiAccent';
 import { Photo } from '../PhotoPlaceholder/Photo';
 import { Reveal } from '../Reveal/Reveal';
 import styles from './PhotoCarousel.module.css';
@@ -10,9 +11,10 @@ interface PhotoCarouselProps {
   photos: PhotoContent[];
   title: string;
   description: string;
+  memoji: MemojiAccentContent;
 }
 
-export function PhotoCarousel({ photos, title, description }: PhotoCarouselProps) {
+export function PhotoCarousel({ photos, title, description, memoji }: PhotoCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start', containScroll: 'trimSnaps' });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -60,7 +62,8 @@ export function PhotoCarousel({ photos, title, description }: PhotoCarouselProps
 
   return (
     <section id="fotos" className={styles.section} aria-labelledby="gallery-title">
-      <div className="section-shell">
+      <div className={styles.shell}>
+        <MemojiAccent accent={memoji} variant="gallery" />
         <Reveal>
           <div className={styles.heading}>
             <div>

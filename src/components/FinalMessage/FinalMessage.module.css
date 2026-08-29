@@ -2,8 +2,8 @@
   padding: clamp(84px, 12vw, 150px) 20px;
   color: var(--color-cream);
   background:
-    linear-gradient(90deg, rgb(247 242 236 / 0.06) 1px, transparent 1px),
-    linear-gradient(180deg, rgb(247 242 236 / 0.06) 1px, transparent 1px), var(--color-wine);
+    linear-gradient(90deg, rgb(250 245 236 / 0.06) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(250 245 236 / 0.06) 1px, transparent 1px), var(--color-wine);
   background-size: 54px 54px;
 }
 

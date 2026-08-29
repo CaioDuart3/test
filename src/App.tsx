@@ -26,8 +26,8 @@ function App() {
       </a>
       <Navigation initials={siteContent.initials} items={navItems} />
       <main id="conteudo" className={styles.main} tabIndex={-1}>
-        <Hero content={siteContent.hero} />
-        <IntroLetter content={siteContent.introduction} />
+        <Hero content={siteContent.hero} memoji={siteContent.memojis.hero} />
+        <IntroLetter content={siteContent.introduction} memoji={siteContent.memojis.letter} />
         <Timeline
           items={siteContent.timeline}
           title={siteContent.sections.timelineTitle}
@@ -37,6 +37,7 @@ function App() {
           photos={siteContent.gallery}
           title={siteContent.sections.galleryTitle}
           description={siteContent.sections.galleryDescription}
+          memoji={siteContent.memojis.gallery}
         />
         <Playlist
           content={siteContent.playlist}

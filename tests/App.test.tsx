@@ -49,6 +49,7 @@ describe('site romântico editorial', () => {
         photos={siteContent.gallery}
         title={siteContent.sections.galleryTitle}
         description={siteContent.sections.galleryDescription}
+        memoji={siteContent.memojis.gallery}
       />,
     );
 

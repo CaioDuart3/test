@@ -1,6 +1,6 @@
 ---
-name: "playwright-interactive"
-description: "Persistent browser and Electron interaction through `js_repl` for fast iterative UI debugging."
+name: 'playwright-interactive'
+description: 'Persistent browser and Electron interaction through `js_repl` for fast iterative UI debugging.'
 ---
 
 # Playwright Interactive Skill
@@ -72,11 +72,11 @@ var electronApp;
 var appWindow;
 
 try {
-  ({ chromium, _electron: electronLauncher } = await import("playwright"));
-  console.log("Playwright loaded");
+  ({ chromium, _electron: electronLauncher } = await import('playwright'));
+  console.log('Playwright loaded');
 } catch (error) {
   throw new Error(
-    `Could not load playwright from the current js_repl cwd. Run the setup commands from this workspace first. Original error: ${error}`
+    `Could not load playwright from the current js_repl cwd. Run the setup commands from this workspace first. Original error: ${error}`,
   );
 }
 ```
@@ -111,10 +111,10 @@ var reloadWebContexts = async function () {
   for (const currentContext of [context, mobileContext]) {
     if (!currentContext) continue;
     for (const p of currentContext.pages()) {
-      await p.reload({ waitUntil: "domcontentloaded" });
+      await p.reload({ waitUntil: 'domcontentloaded' });
     }
   }
-  console.log("Reloaded existing web tabs");
+  console.log('Reloaded existing web tabs');
 };
 ```
 
@@ -138,7 +138,7 @@ Desktop and mobile web sessions share the same `browser`, helpers, and QA flow. 
 Set `TARGET_URL` to the app you are debugging. For local servers, prefer `127.0.0.1` over `localhost`.
 
 ```javascript
-var TARGET_URL = "http://127.0.0.1:3000";
+var TARGET_URL = 'http://127.0.0.1:3000';
 
 if (page?.isClosed()) page = undefined;
 
@@ -148,8 +148,8 @@ context ??= await browser.newContext({
 });
 page ??= await context.newPage();
 
-await page.goto(TARGET_URL, { waitUntil: "domcontentloaded" });
-console.log("Loaded:", await page.title());
+await page.goto(TARGET_URL, { waitUntil: 'domcontentloaded' });
+console.log('Loaded:', await page.title());
 ```
 
 If `context` or `page` is stale, set `context = page = undefined` and rerun the cell.
@@ -159,9 +159,7 @@ If `context` or `page` is stale, set `context = page = undefined` and rerun the 
 Reuse `TARGET_URL` when it already exists; otherwise set a mobile target directly.
 
 ```javascript
-var MOBILE_TARGET_URL = typeof TARGET_URL === "string"
-  ? TARGET_URL
-  : "http://127.0.0.1:3000";
+var MOBILE_TARGET_URL = typeof TARGET_URL === 'string' ? TARGET_URL : 'http://127.0.0.1:3000';
 
 if (mobilePage?.isClosed()) mobilePage = undefined;
 
@@ -173,8 +171,8 @@ mobileContext ??= await browser.newContext({
 });
 mobilePage ??= await mobileContext.newPage();
 
-await mobilePage.goto(MOBILE_TARGET_URL, { waitUntil: "domcontentloaded" });
-console.log("Loaded mobile:", await mobilePage.title());
+await mobilePage.goto(MOBILE_TARGET_URL, { waitUntil: 'domcontentloaded' });
+console.log('Loaded mobile:', await mobilePage.title());
 ```
 
 If `mobileContext` or `mobilePage` is stale, set `mobileContext = mobilePage = undefined` and rerun the cell.
@@ -182,7 +180,7 @@ If `mobileContext` or `mobilePage` is stale, set `mobileContext = mobilePage = u
 ### Native-Window Web Pass
 
 ```javascript
-var TARGET_URL = "http://127.0.0.1:3000";
+var TARGET_URL = 'http://127.0.0.1:3000';
 
 await ensureWebBrowser();
 
@@ -195,8 +193,8 @@ browser ??= await chromium.launch({ headless: false });
 context = await browser.newContext({ viewport: null });
 page = await context.newPage();
 
-await page.goto(TARGET_URL, { waitUntil: "domcontentloaded" });
-console.log("Loaded native window:", await page.title());
+await page.goto(TARGET_URL, { waitUntil: 'domcontentloaded' });
+console.log('Loaded native window:', await page.title());
 ```
 
 ## Start or Reuse Electron Session
@@ -204,7 +202,7 @@ console.log("Loaded native window:", await page.title());
 Set `ELECTRON_ENTRY` to `.` when the current workspace is the Electron app and `package.json` points `main` to the right entry file. If you need to target a specific main-process file directly, use a path such as `./main.js` instead.
 
 ```javascript
-var ELECTRON_ENTRY = ".";
+var ELECTRON_ENTRY = '.';
 
 if (appWindow?.isClosed()) appWindow = undefined;
 
@@ -219,7 +217,7 @@ electronApp ??= await electronLauncher.launch({
 
 appWindow ??= await electronApp.firstWindow();
 
-console.log("Loaded Electron window:", await appWindow.title());
+console.log('Loaded Electron window:', await appWindow.title());
 ```
 
 If `js_repl` is not already running from the Electron app workspace, pass `cwd` explicitly when launching.
@@ -241,8 +239,8 @@ await reloadWebContexts();
 Electron renderer-only reload:
 
 ```javascript
-await appWindow.reload({ waitUntil: "domcontentloaded" });
-console.log("Reloaded Electron window");
+await appWindow.reload({ waitUntil: 'domcontentloaded' });
+console.log('Reloaded Electron window');
 ```
 
 Electron restart after main-process, preload, or startup changes:
@@ -257,7 +255,7 @@ electronApp = await electronLauncher.launch({
 });
 
 appWindow = await electronApp.firstWindow();
-console.log("Relaunched Electron window:", await appWindow.title());
+console.log('Relaunched Electron window:', await appWindow.title());
 ```
 
 If your launch requires an explicit `cwd`, include the same `cwd` here.
@@ -364,32 +362,28 @@ Shared helpers and conventions:
 var emitJpeg = async function (bytes) {
   await codex.emitImage({
     bytes,
-    mimeType: "image/jpeg",
-    detail: "original",
+    mimeType: 'image/jpeg',
+    detail: 'original',
   });
 };
 
 var emitWebJpeg = async function (surface, options = {}) {
-  await emitJpeg(await surface.screenshot({
-    type: "jpeg",
-    quality: 85,
-    scale: "css",
-    ...options,
-  }));
+  await emitJpeg(
+    await surface.screenshot({
+      type: 'jpeg',
+      quality: 85,
+      scale: 'css',
+      ...options,
+    }),
+  );
 };
 
 var clickCssPoint = async function ({ surface, x, y, clip }) {
-  await surface.mouse.click(
-    clip ? clip.x + x : x,
-    clip ? clip.y + y : y
-  );
+  await surface.mouse.click(clip ? clip.x + x : x, clip ? clip.y + y : y);
 };
 
 var tapCssPoint = async function ({ page, x, y, clip }) {
-  await page.touchscreen.tap(
-    clip ? clip.x + x : x,
-    clip ? clip.y + y : y
-  );
+  await page.touchscreen.tap(clip ? clip.x + x : x, clip ? clip.y + y : y);
 };
 ```
 
@@ -437,7 +431,7 @@ Web native-window fallback when `scale: "css"` still comes back at device-pixel 
 
 ```javascript
 var emitWebScreenshotCssScaled = async function ({ page, clip, quality = 0.85 } = {}) {
-  var NodeBuffer = (await import("node:buffer")).Buffer;
+  var NodeBuffer = (await import('node:buffer')).Buffer;
   const target = clip
     ? { width: clip.width, height: clip.height }
     : await page.evaluate(() => ({
@@ -446,7 +440,7 @@ var emitWebScreenshotCssScaled = async function ({ page, clip, quality = 0.85 } 
       }));
 
   const screenshotBuffer = await page.screenshot({
-    type: "png",
+    type: 'png',
     ...(clip ? { clip } : {}),
   });
 
@@ -456,26 +450,24 @@ var emitWebScreenshotCssScaled = async function ({ page, clip, quality = 0.85 } 
       image.src = `data:image/png;base64,${imageBase64}`;
       await image.decode();
 
-      const canvas = document.createElement("canvas");
+      const canvas = document.createElement('canvas');
       canvas.width = targetWidth;
       canvas.height = targetHeight;
 
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext('2d');
       ctx.imageSmoothingEnabled = true;
       ctx.drawImage(image, 0, 0, targetWidth, targetHeight);
 
-      const blob = await new Promise((resolve) =>
-        canvas.toBlob(resolve, "image/jpeg", quality)
-      );
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
 
       return new Uint8Array(await blob.arrayBuffer());
     },
     {
-      imageBase64: NodeBuffer.from(screenshotBuffer).toString("base64"),
+      imageBase64: NodeBuffer.from(screenshotBuffer).toString('base64'),
       targetWidth: target.width,
       targetHeight: target.height,
       quality,
-    }
+    },
   );
 
   await emitJpeg(bytes);
@@ -502,25 +494,28 @@ For Electron, normalize in the main process instead of opening a scratch Playwri
 
 ```javascript
 var emitElectronScreenshotCssScaled = async function ({ electronApp, clip, quality = 85 } = {}) {
-  const bytes = await electronApp.evaluate(async ({ BrowserWindow }, { clip, quality }) => {
-    const win = BrowserWindow.getAllWindows()[0];
-    const image = clip ? await win.capturePage(clip) : await win.capturePage();
+  const bytes = await electronApp.evaluate(
+    async ({ BrowserWindow }, { clip, quality }) => {
+      const win = BrowserWindow.getAllWindows()[0];
+      const image = clip ? await win.capturePage(clip) : await win.capturePage();
 
-    const target = clip
-      ? { width: clip.width, height: clip.height }
-      : (() => {
-          const [width, height] = win.getContentSize();
-          return { width, height };
-        })();
+      const target = clip
+        ? { width: clip.width, height: clip.height }
+        : (() => {
+            const [width, height] = win.getContentSize();
+            return { width, height };
+          })();
 
-    const resized = image.resize({
-      width: target.width,
-      height: target.height,
-      quality: "best",
-    });
+      const resized = image.resize({
+        width: target.width,
+        height: target.height,
+        quality: 'best',
+      });
 
-    return resized.toJPEG(quality);
-  }, { clip, quality });
+      return resized.toJPEG(quality);
+    },
+    { clip, quality },
+  );
 
   await emitJpeg(bytes);
 };
@@ -537,7 +532,7 @@ Clipped Electron region using CSS pixels from the renderer:
 
 ```javascript
 var clip = await appWindow.evaluate(() => {
-  const rect = document.getElementById("board").getBoundingClientRect();
+  const rect = document.getElementById('board').getBoundingClientRect();
   return {
     x: Math.round(rect.x),
     y: Math.round(rect.y),
@@ -558,9 +553,9 @@ Web desktop raw emit:
 
 ```javascript
 await codex.emitImage({
-  bytes: await page.screenshot({ type: "jpeg", quality: 85 }),
-  mimeType: "image/jpeg",
-  detail: "original",
+  bytes: await page.screenshot({ type: 'jpeg', quality: 85 }),
+  mimeType: 'image/jpeg',
+  detail: 'original',
 });
 ```
 
@@ -568,9 +563,9 @@ Electron raw emit:
 
 ```javascript
 await codex.emitImage({
-  bytes: await appWindow.screenshot({ type: "jpeg", quality: 85 }),
-  mimeType: "image/jpeg",
-  detail: "original",
+  bytes: await appWindow.screenshot({ type: 'jpeg', quality: 85 }),
+  mimeType: 'image/jpeg',
+  detail: 'original',
 });
 ```
 
@@ -578,9 +573,9 @@ Mobile raw emit after the mobile web context is already running:
 
 ```javascript
 await codex.emitImage({
-  bytes: await mobilePage.screenshot({ type: "jpeg", quality: 85 }),
-  mimeType: "image/jpeg",
-  detail: "original",
+  bytes: await mobilePage.screenshot({ type: 'jpeg', quality: 85 }),
+  mimeType: 'image/jpeg',
+  detail: 'original',
 });
 ```
 
@@ -601,31 +596,35 @@ Do not assume a screenshot is acceptable just because the main widget is visible
 Web or renderer check:
 
 ```javascript
-console.log(await page.evaluate(() => ({
-  innerWidth: window.innerWidth,
-  innerHeight: window.innerHeight,
-  clientWidth: document.documentElement.clientWidth,
-  clientHeight: document.documentElement.clientHeight,
-  scrollWidth: document.documentElement.scrollWidth,
-  scrollHeight: document.documentElement.scrollHeight,
-  canScrollX: document.documentElement.scrollWidth > document.documentElement.clientWidth,
-  canScrollY: document.documentElement.scrollHeight > document.documentElement.clientHeight,
-})));
+console.log(
+  await page.evaluate(() => ({
+    innerWidth: window.innerWidth,
+    innerHeight: window.innerHeight,
+    clientWidth: document.documentElement.clientWidth,
+    clientHeight: document.documentElement.clientHeight,
+    scrollWidth: document.documentElement.scrollWidth,
+    scrollHeight: document.documentElement.scrollHeight,
+    canScrollX: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    canScrollY: document.documentElement.scrollHeight > document.documentElement.clientHeight,
+  })),
+);
 ```
 
 Electron check:
 
 ```javascript
-console.log(await appWindow.evaluate(() => ({
-  innerWidth: window.innerWidth,
-  innerHeight: window.innerHeight,
-  clientWidth: document.documentElement.clientWidth,
-  clientHeight: document.documentElement.clientHeight,
-  scrollWidth: document.documentElement.scrollWidth,
-  scrollHeight: document.documentElement.scrollHeight,
-  canScrollX: document.documentElement.scrollWidth > document.documentElement.clientWidth,
-  canScrollY: document.documentElement.scrollHeight > document.documentElement.clientHeight,
-})));
+console.log(
+  await appWindow.evaluate(() => ({
+    innerWidth: window.innerWidth,
+    innerHeight: window.innerHeight,
+    clientWidth: document.documentElement.clientWidth,
+    clientHeight: document.documentElement.clientHeight,
+    scrollWidth: document.documentElement.scrollWidth,
+    scrollHeight: document.documentElement.scrollHeight,
+    canScrollX: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    canScrollY: document.documentElement.scrollHeight > document.documentElement.clientHeight,
+  })),
+);
 ```
 
 Augment the numeric check with `getBoundingClientRect()` checks for the required visible regions in your specific UI when clipping is a realistic failure mode; document-level metrics alone are not sufficient for fixed shells.
@@ -676,7 +675,7 @@ mobilePage = undefined;
 electronApp = undefined;
 appWindow = undefined;
 
-console.log("Playwright session closed");
+console.log('Playwright session closed');
 ```
 
 If you plan to exit Codex immediately after debugging, run the cleanup cell first and wait for the `"Playwright session closed"` log before quitting.

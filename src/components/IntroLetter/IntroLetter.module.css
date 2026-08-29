@@ -3,6 +3,7 @@
 }
 
 .shell {
+  position: relative;
   width: min(860px, calc(100vw - 40px));
   margin-inline: auto;
 }
