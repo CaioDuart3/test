@@ -1,10 +1,37 @@
 .section {
+  position: relative;
+  overflow: hidden;
   padding: clamp(84px, 12vw, 150px) 20px;
   color: var(--color-cream);
   background:
     linear-gradient(90deg, rgb(250 245 236 / 0.06) 1px, transparent 1px),
     linear-gradient(180deg, rgb(250 245 236 / 0.06) 1px, transparent 1px), var(--color-wine);
   background-size: 54px 54px;
+}
+
+.characterWrapper {
+  position: absolute;
+  bottom: -10px;
+  right: clamp(-20px, 2vw, 20px);
+  width: clamp(180px, 22vw, 320px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.character {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(-8px 0 40px rgb(0 0 0 / 0.25));
+}
+
+@media (max-width: 640px) {
+  .characterWrapper {
+    width: clamp(120px, 38vw, 180px);
+    right: -8px;
+    opacity: 0.85;
+  }
 }
 
 .shell {

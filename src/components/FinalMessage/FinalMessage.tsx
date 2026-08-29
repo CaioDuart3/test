@@ -1,5 +1,6 @@
 import { ArrowUp } from 'lucide-react';
 import { motion, useReducedMotion as useMotionReducedMotion } from 'motion/react';
+import sereia from '../../assets/sereia.png';
 import styles from './FinalMessage.module.css';
 
 interface FinalMessageProps {
@@ -27,6 +28,18 @@ export function FinalMessage({ message, signature }: FinalMessageProps) {
           Voltar ao início
         </a>
       </motion.div>
+
+      <motion.div
+        className={styles.characterWrapper}
+        aria-hidden="true"
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 50, x: 20 }}
+        whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0, x: 0 }}
+        viewport={{ once: true, margin: '-8% 0px' }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+      >
+        <img src={sereia} alt="" draggable="false" className={styles.character} />
+      </motion.div>
     </section>
   );
 }
+

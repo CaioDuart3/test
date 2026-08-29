@@ -1,37 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function useActiveSection(sectionIds: string[]) {
   const [activeSection, setActiveSection] = useState(sectionIds[0] ?? '');
+  // Keep a ref to the latest sectionIds so the scroll handler stays current
+  const idsRef = useRef(sectionIds);
+  useEffect(() => {
+    idsRef.current = sectionIds;
+  }, [sectionIds]);
 
   useEffect(() => {
-    const observedSections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
+    function getActive(): string {
+      const ids = idsRef.current;
+      const viewportMid = window.scrollY + window.innerHeight * 0.4;
 
-    if (observedSections.length === 0) {
-      return undefined;
+      let closest = ids[0] ?? '';
+      let closestDist = Infinity;
+
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        const dist = Math.abs(top - viewportMid);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = id;
+        }
+      }
+
+      return closest;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    // Run once on mount to set the correct initial active section
+    setActiveSection(getActive());
 
-        if (visibleEntry?.target.id) {
-          setActiveSection(visibleEntry.target.id);
-        }
-      },
-      {
-        rootMargin: '-28% 0px -58% 0px',
-        threshold: [0.12, 0.3, 0.55],
-      },
-    );
+    let rafId: number;
+    function onScroll() {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        setActiveSection(getActive());
+      });
+    }
 
-    observedSections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, [sectionIds]);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, []); // empty — idsRef keeps it fresh without re-subscribing
 
   return activeSection;
 }
