@@ -1,0 +1,81 @@
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) minmax(180px, 270px);
+  gap: clamp(18px, 4vw, 34px);
+  align-items: start;
+  padding: 30px 0;
+}
+
+.marker {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-wine);
+  place-items: center;
+  background: var(--color-cream);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+
+.copy {
+  max-width: 560px;
+}
+
+.date {
+  margin-bottom: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-wine);
+  text-transform: uppercase;
+}
+
+.copy h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.copy p:not(.date) {
+  margin-top: 14px;
+  color: var(--color-muted);
+}
+
+.photo {
+  margin: 0;
+}
+
+.image,
+.photo :global(.frame) {
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+@media (max-width: 820px) {
+  .card {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .photo {
+    grid-column: 2;
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 520px) {
+  .card {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .photo {
+    grid-column: auto;
+  }
+}

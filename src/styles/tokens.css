@@ -1,0 +1,19 @@
+:root {
+  --color-cream: #f7f2ec;
+  --color-paper: #efe4dd;
+  --color-rose: #c98f95;
+  --color-wine: #713b49;
+  --color-ink: #292524;
+  --color-muted: #746b67;
+  --color-rose-deep: #9f6872;
+  --color-focus: #1d4ed8;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  --container: min(1120px, calc(100vw - 40px));
+  --nav-height: 72px;
+  --radius: 8px;
+  --shadow-soft: 0 24px 70px rgb(41 37 36 / 0.14);
+  --line: rgb(113 59 73 / 0.22);
+}
