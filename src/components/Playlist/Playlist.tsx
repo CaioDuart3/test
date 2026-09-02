@@ -64,3 +64,4 @@ export function Playlist({ content, title, description }: PlaylistProps) {
     </section>
   );
 }
+

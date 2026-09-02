@@ -63,7 +63,7 @@ describe('site romântico editorial', () => {
   it('não renderiza iframe de playlist quando o embed está vazio', () => {
     render(
       <Playlist
-        content={siteContent.playlist}
+        content={{ ...siteContent.playlist, embedUrl: '' }}
         title={siteContent.sections.playlistTitle}
         description={siteContent.sections.playlistDescription}
       />,
