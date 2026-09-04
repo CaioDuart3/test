@@ -23,6 +23,14 @@ html:not(.reduce-motion) {
   scroll-behavior: smooth;
 }
 
+html.intro-active {
+  overflow: hidden;
+}
+
+html.intro-active body {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   min-width: 320px;

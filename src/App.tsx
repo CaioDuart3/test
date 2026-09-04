@@ -1,5 +1,7 @@
+import { useCallback, useState } from 'react';
 import { FinalMessage } from './components/FinalMessage/FinalMessage';
 import { Hero } from './components/Hero/Hero';
+import { Intro } from './components/Intro/Intro';
 import { IntroLetter } from './components/IntroLetter/IntroLetter';
 import { Navigation } from './components/Navigation/Navigation';
 import { PhotoCarousel } from './components/PhotoCarousel/PhotoCarousel';
@@ -18,15 +20,27 @@ const navItems = [
 
 function App() {
   useReducedMotion();
+  const [introComplete, setIntroComplete] = useState(false);
+  const handleIntroComplete = useCallback(() => setIntroComplete(true), []);
 
   return (
     <>
+      <Intro initials={siteContent.initials} onComplete={handleIntroComplete} />
       <a className="skip-link" href="#conteudo">
         Pular para o conteúdo
       </a>
       <Navigation initials={siteContent.initials} items={navItems} />
-      <main id="conteudo" className={styles.main} tabIndex={-1}>
-        <Hero content={siteContent.hero} memoji={siteContent.memojis.hero} />
+      <main
+        id="conteudo"
+        className={styles.main}
+        tabIndex={-1}
+        aria-hidden={!introComplete ? true : undefined}
+      >
+        <Hero
+          content={siteContent.hero}
+          memoji={siteContent.memojis.hero}
+          introComplete={introComplete}
+        />
         <IntroLetter content={siteContent.introduction} memoji={siteContent.memojis.letter} />
         <Timeline
           items={siteContent.timeline}

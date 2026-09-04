@@ -16,11 +16,13 @@ type HeroContent = SiteContent['hero'];
 interface HeroProps {
   content: HeroContent;
   memoji: MemojiAccentContent;
+  introComplete?: boolean;
 }
 
-export function Hero({ content, memoji }: HeroProps) {
+export function Hero({ content, memoji, introComplete = true }: HeroProps) {
   const heroRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useMotionReducedMotion();
+  const shouldAnimate = !prefersReducedMotion && introComplete;
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const imageY = useTransform(
     scrollYProgress,
@@ -34,7 +36,7 @@ export function Hero({ content, memoji }: HeroProps) {
         <motion.div
           className={styles.copy}
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className={styles.eyebrow}>{content.eyebrow}</span>
@@ -50,7 +52,7 @@ export function Hero({ content, memoji }: HeroProps) {
           className={styles.photoWrap}
           style={{ y: imageY }}
           initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.98 }}
-          animate={prefersReducedMotion ? undefined : { opacity: 1, scale: 1 }}
+          animate={shouldAnimate ? { opacity: 1, scale: 1 } : undefined}
           transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
         >
           <span className={styles.index} aria-hidden="true">
